@@ -1,0 +1,17 @@
+Study the examples in IntroToFileIO.java. Ask your teacher for any clarification you may need.
+
+1. Write a program that takes a message from the user and saves an encrypted form of that message in a new file. Use any encryption algorithm you choose.
+
+2. Create a separate program that asks for a encrypted file (you can use the JFileChooser) and prints the decrypted version.
+
+3. Create a program that adds a copyright notice to all the .java files in your Level 3 repositories (e.g. //Copyright © 2017 by Bill Jobs)
+   It is highly recommend that you test your program thoroughly with junk files before running it on your actual work.
+   
+4. Make a to-do list tracker:
+	Create a window with four buttons: add task, remove task, save, and load.
+	The add task button will display a JOptionPane to get a task from the user and add it to the list.
+	Remove task will remove a task from the list. You can choose your own method of how to select a task from the list.
+	The save button will save the current task list to a file.
+	The load button will load a new task list into the program and display it.
+	The program should automatically load the last saved list from the file at startup and display it.
+   
