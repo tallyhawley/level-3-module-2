@@ -4,11 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -120,18 +124,64 @@ public class ToDoList implements MouseListener{
 		}
 		else if(e.getSource()==saveList) {
 			savenum++;
-			String filename = "src/intro_to_file_io/save_" + savenum;
+			String filename = "src/intro_to_file_io/save_n" + savenum +".txt";
 			try {
 				FileWriter fw = new FileWriter(filename);
-				
+				String codeNeeded="";
+				for(int i =0;i<tasks.size();i++) {
+					codeNeeded+=(tasks.get(i)+"\n");
+				}
+				fw.write(codeNeeded);
+				fw.close();
+				JOptionPane.showMessageDialog(null, "saved!");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			JOptionPane.showMessageDialog(null, "done");
 		}
 		else if(e.getSource()==loadList) {
-			
-		}
+			String fileName = null;
+			try {
+				JFileChooser jfc = new JFileChooser();
+				int returnVal = jfc.showOpenDialog(null);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					fileName = jfc.getSelectedFile().getAbsolutePath();
+					System.out.println(fileName);
+				}
+				BufferedReader br = new BufferedReader(new FileReader(fileName));
+				tasks.clear();
+				String line = br.readLine();
+				while(line != null){
+					tasks.add(line);
+					line = br.readLine();
+				}
+				br.close();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			String[] array = new String[tasks.size()];
+			for(int i=0;i<tasks.size();i++) {
+				String temp = "<html>" + (i+1) + ". " + tasks.get(i) + "<br><html>";
+				array[i] = temp;
+			}
+			all = array[0];
+			for(int i=1;i<array.length;i++) {
+				all += array[i];
+			}
+			label.setText(all);
+			label.setOpaque(true);
+			panel.add(label);
+			frame.pack();
+			}
+			else {
+				label.setText(null);
+				label.setOpaque(true);
+				panel.add(label);
+				frame.pack();
+			}
 	}
 
 	@Override
